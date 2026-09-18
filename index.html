@@ -3,109 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#0b090d">
-    <meta name="description" content="A little birthday surprise for Akifa">
-    <title>Untuk Akifa 🤍</title>
-    <!-- Google Fonts -->
+    <meta name="theme-color" content="#0b0b10">
+
+    <title>Happy Birthday, Akifa</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@400;500;600;700&display=swap"
-        rel="stylesheet"
-    >
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+
     <style>
-        /* =========================================================
-           RESET
-        ========================================================= */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         html {
             scroll-behavior: smooth;
         }
+
         body {
-            min-height: 100vh;
-            overflow-x: hidden;
-            background: #0b090d;
-            color: #ffffff;
+            background: #08080d;
+            color: #f5f2ed;
             font-family: "DM Sans", sans-serif;
+            overflow-x: hidden;
         }
-        body.locked {
+
+        body.lock {
             overflow: hidden;
         }
-        img {
-            display: block;
-            max-width: 100%;
-        }
-        button,
-        input {
-            font: inherit;
-        }
-        button {
-            cursor: pointer;
-        }
-        /* =========================================================
+
+        /* =========================
            BACKGROUND
-        ========================================================= */
+        ========================= */
+
         .background {
             position: fixed;
             inset: 0;
-            z-index: -10;
+            z-index: -5;
             overflow: hidden;
             background:
                 radial-gradient(
                     circle at 20% 20%,
-                    rgba(255, 185, 210, 0.09),
-                    transparent 30%
+                    rgba(255, 119, 164, .13),
+                    transparent 32%
                 ),
                 radial-gradient(
                     circle at 80% 70%,
-                    rgba(210, 180, 255, 0.08),
-                    transparent 32%
+                    rgba(184, 118, 255, .10),
+                    transparent 35%
                 ),
-                #0b090d;
+                #08080d;
         }
-        .background::before,
+
         .background::after {
             content: "";
             position: absolute;
-            width: 420px;
-            height: 420px;
-            border-radius: 50%;
-            filter: blur(110px);
-            opacity: 0.18;
-        }
-        .background::before {
-            top: -180px;
-            left: -160px;
-            background: #ff9fbe;
-        }
-        .background::after {
-            right: -170px;
-            bottom: -180px;
-            background: #9d7aff;
-        }
-        /* =========================================================
-           NOISE
-        ========================================================= */
-        .noise {
-            position: fixed;
             inset: 0;
-            z-index: 9999;
+            opacity: .045;
             pointer-events: none;
-            opacity: 0.025;
             background-image:
-                url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
         }
-        /* =========================================================
+
+        /* =========================
            START SCREEN
-        ========================================================= */
-        .start-screen {
+        ========================= */
+
+        #startScreen {
             position: fixed;
             inset: 0;
-            z-index: 5000;
+            z-index: 1000;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -114,638 +83,705 @@
             background:
                 radial-gradient(
                     circle at center,
-                    rgba(255,255,255,0.055),
-                    transparent 38%
+                    rgba(255, 110, 157, .12),
+                    transparent 45%
                 ),
-                #0b090d;
-            transition:
-                opacity 1s ease,
-                visibility 1s ease;
+                #08080d;
+            transition: opacity .8s ease, visibility .8s ease;
         }
-        .start-screen.hide {
+
+        #startScreen.hide {
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
         }
+
         .start-content {
-            width: min(650px, 100%);
+            width: 100%;
+            max-width: 600px;
+            animation: startIn 1.2s ease;
         }
-        .start-date {
-            margin-bottom: 28px;
-            color: rgba(255,255,255,0.42);
-            font-size: 11px;
-            font-weight: 600;
+
+        .date-small {
+            color: #ff9dbd;
+            font-size: 12px;
             letter-spacing: 5px;
             text-transform: uppercase;
+            margin-bottom: 24px;
         }
-        .start-title {
+
+        .start-content h1 {
             font-family: "Playfair Display", serif;
-            font-size: clamp(46px, 11vw, 90px);
+            font-size: clamp(42px, 10vw, 78px);
             font-weight: 500;
-            line-height: 0.95;
-            letter-spacing: -2px;
+            line-height: 1;
+            margin-bottom: 24px;
         }
-        .start-description {
-            max-width: 470px;
-            margin: 28px auto 35px;
-            color: rgba(255,255,255,0.58);
-            font-size: 14px;
-            line-height: 1.9;
-        }
-        .open-button {
-            padding: 15px 32px;
-            border: 1px solid rgba(255,255,255,0.22);
-            border-radius: 999px;
-            outline: none;
-            color: #ffffff;
-            background: rgba(255,255,255,0.06);
-            font-size: 13px;
-            font-weight: 600;
-            transition:
-                transform 0.3s ease,
-                background 0.3s ease,
-                color 0.3s ease;
-        }
-        .open-button:hover {
-            transform: translateY(-4px);
-            background: #ffffff;
-            color: #111111;
-        }
-        /* =========================================================
-           MUSIC BUTTON
-        ========================================================= */
-        .music-button {
-            position: fixed;
-            top: 18px;
-            right: 18px;
-            z-index: 1000;
-            width: 46px;
-            height: 46px;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 50%;
-            color: #ffffff;
-            background: rgba(15,12,18,0.72);
-            backdrop-filter: blur(14px);
-            font-size: 18px;
-            transition: 0.3s ease;
-        }
-        .music-button.visible {
-            display: flex;
-        }
-        .music-button.playing {
-            animation: musicPulse 1.8s infinite;
-        }
-        @keyframes musicPulse {
-            0%,
-            100% {
-                box-shadow:
-                    0 0 0 0 rgba(255,255,255,0);
-            }
-            50% {
-                box-shadow:
-                    0 0 0 9px rgba(255,255,255,0.04);
-            }
-        }
-        /* =========================================================
-           GENERAL
-        ========================================================= */
-        section {
-            min-height: 100vh;
-            padding:
-                100px
-                20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .container {
-            width: min(920px, 100%);
+
+        .start-content p {
+            color: #aaa6af;
+            font-size: 15px;
+            line-height: 1.8;
+            max-width: 430px;
             margin: auto;
         }
-        .center {
-            text-align: center;
+
+        .open-btn {
+            margin-top: 35px;
+            padding: 16px 30px;
+            border: 1px solid rgba(255,255,255,.2);
+            border-radius: 100px;
+            background: rgba(255,255,255,.06);
+            color: white;
+            font-family: inherit;
+            font-size: 14px;
+            cursor: pointer;
+            transition: .3s ease;
         }
-        .eyebrow {
-            margin-bottom: 20px;
-            color: rgba(255,255,255,0.42);
+
+        .open-btn:hover {
+            background: rgba(255,255,255,.12);
+            transform: translateY(-3px);
+            border-color: rgba(255,157,189,.5);
+        }
+
+        /* =========================
+           MUSIC
+        ========================= */
+
+        .music-control {
+            position: fixed;
+            right: 18px;
+            bottom: 18px;
+            z-index: 100;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,.15);
+            background: rgba(18,18,25,.85);
+            backdrop-filter: blur(15px);
+            color: white;
+            cursor: pointer;
+            font-size: 17px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,.3);
+        }
+
+        /* =========================
+           GENERAL
+        ========================= */
+
+        .container {
+            width: min(1080px, calc(100% - 40px));
+            margin: auto;
+        }
+
+        section {
+            padding: 110px 0;
+        }
+
+        .section-label {
+            color: #ff9dbd;
             font-size: 11px;
-            font-weight: 600;
             letter-spacing: 4px;
             text-transform: uppercase;
+            margin-bottom: 25px;
         }
-        .main-title {
+
+        .section-title {
             font-family: "Playfair Display", serif;
-            font-size: clamp(45px, 9vw, 85px);
+            font-size: clamp(38px, 7vw, 68px);
             font-weight: 500;
-            line-height: 0.98;
-            letter-spacing: -2px;
+            line-height: 1.08;
         }
-        .description {
-            max-width: 600px;
-            margin: 26px auto 0;
-            color: rgba(255,255,255,0.58);
-            font-size: 15px;
-            line-height: 1.9;
+
+        .section-description {
+            color: #a7a3ab;
+            line-height: 1.8;
+            max-width: 580px;
+            margin-top: 22px;
         }
-        .reveal {
-            opacity: 0;
-            transform:
-                translateY(35px);
-            transition:
-                opacity 1s ease,
-                transform 1s ease;
-        }
-        .reveal.visible {
-            opacity: 1;
-            transform:
-                translateY(0);
-        }
-        /* =========================================================
+
+        /* =========================
            HERO
-        ========================================================= */
-        .hero-photo {
-            width: 190px;
-            height: 245px;
-            margin:
-                0
-                auto
-                38px;
+        ========================= */
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: 50px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr .8fr;
+            gap: 70px;
+            align-items: center;
+        }
+
+        .hero-image-wrap {
+            position: relative;
+        }
+
+        .hero-image {
+            width: 100%;
+            max-height: 680px;
             object-fit: cover;
-            border-radius:
-                110px
-                110px
-                18px
-                18px;
-            box-shadow:
-                0 30px 80px rgba(0,0,0,0.55);
+            display: block;
+            border-radius: 4px;
+            filter: saturate(.9);
+            box-shadow: 0 30px 80px rgba(0,0,0,.45);
         }
+
+        .hero-image-wrap::before {
+            content: "";
+            position: absolute;
+            inset: 14px -14px -14px 14px;
+            border: 1px solid rgba(255,157,189,.25);
+            z-index: -1;
+        }
+
+        .hero-copy .date {
+            color: #ff9dbd;
+            font-size: 12px;
+            letter-spacing: 5px;
+            margin-bottom: 25px;
+        }
+
+        .hero-copy h1 {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(48px, 7vw, 84px);
+            font-weight: 500;
+            line-height: .98;
+        }
+
+        .hero-copy h1 em {
+            color: #ff9dbd;
+        }
+
+        .hero-copy p {
+            color: #a7a3ab;
+            line-height: 1.8;
+            margin-top: 28px;
+            max-width: 470px;
+        }
+
         .scroll-hint {
-            margin-top: 65px;
-            color: rgba(255,255,255,0.28);
-            font-size: 10px;
-            font-weight: 600;
-            letter-spacing: 4px;
-            animation:
-                scrollHint
-                2s infinite;
+            margin-top: 50px;
+            color: #77737c;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
         }
-        @keyframes scrollHint {
-            50% {
-                transform:
-                    translateY(7px);
-            }
+
+        .scroll-hint span {
+            display: inline-block;
+            margin-left: 10px;
+            animation: arrowMove 1.6s infinite;
         }
-        /* =========================================================
+
+        /* =========================
            MINI GAME
-        ========================================================= */
-        .game-card {
-            width: min(520px, 100%);
-            margin: 45px auto 0;
-            padding: 25px;
-            border:
-                1px solid
-                rgba(255,255,255,0.09);
-            border-radius: 25px;
-            background:
-                rgba(255,255,255,0.035);
-            backdrop-filter: blur(12px);
+        ========================= */
+
+        .game-box {
+            margin-top: 45px;
+            padding: 35px;
+            border: 1px solid rgba(255,255,255,.08);
+            background: rgba(255,255,255,.025);
+            border-radius: 8px;
+            text-align: center;
         }
-        .game-area {
+
+        .game-box h3 {
+            font-family: "Playfair Display", serif;
+            font-size: 28px;
+            font-weight: 500;
+        }
+
+        .game-box p {
+            color: #8e8a93;
+            font-size: 13px;
+            margin-top: 10px;
+        }
+
+        .heart-area {
             position: relative;
             height: 260px;
+            margin-top: 25px;
+            border-radius: 8px;
             overflow: hidden;
-            border:
-                1px solid
-                rgba(255,255,255,0.05);
-            border-radius: 18px;
-            background:
-                radial-gradient(
-                    circle at center,
-                    rgba(255,255,255,0.035),
-                    transparent 65%
-                );
+            background: rgba(0,0,0,.15);
         }
-        .game-heart {
+
+        .heart {
             position: absolute;
-            border: none;
-            outline: none;
-            background: transparent;
-            color: #ffffff;
+            border: 0;
+            background: none;
+            color: #ff7da6;
             font-size: 34px;
-            transition:
-                transform 0.2s ease,
-                opacity 0.3s ease;
+            cursor: pointer;
+            transition: transform .2s;
+            filter: drop-shadow(0 5px 15px rgba(255,90,140,.25));
         }
-        .game-heart:hover {
-            transform:
-                scale(1.3);
+
+        .heart:hover {
+            transform: scale(1.25);
         }
-        .game-heart.found {
+
+        .heart:nth-child(1) {
+            left: 15%;
+            top: 25%;
+        }
+
+        .heart:nth-child(2) {
+            left: 68%;
+            top: 45%;
+        }
+
+        .heart:nth-child(3) {
+            left: 42%;
+            top: 70%;
+        }
+
+        .heart.found {
             opacity: 0;
-            transform:
-                scale(1.8);
             pointer-events: none;
+            transform: scale(2);
         }
-        .game-info {
-            margin-top: 20px;
-            color: rgba(255,255,255,0.5);
+
+        .counter {
+            margin-top: 18px;
+            color: #ff9dbd;
             font-size: 13px;
         }
-        .game-info strong {
-            color: #ffffff;
-        }
-        .game-complete {
-            display: none;
-            margin-top: 20px;
-            color: rgba(255,255,255,0.8);
-            line-height: 1.7;
-        }
-        .game-complete.show {
-            display: block;
-            animation:
-                fadeUp
-                0.8s ease;
-        }
-        /* =========================================================
-           REASON CARDS
-        ========================================================= */
-        .cards {
+
+        /* =========================
+           REASONS
+        ========================= */
+
+        .reasons {
             display: grid;
-            grid-template-columns:
-                repeat(2, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 15px;
             margin-top: 45px;
         }
-        .reason-card {
-            min-height: 190px;
-            padding: 27px;
-            border:
-                1px solid
-                rgba(255,255,255,0.08);
-            border-radius: 22px;
-            background:
-                rgba(255,255,255,0.035);
-            text-align: left;
-            transition:
-                transform 0.35s ease,
-                background 0.35s ease;
+
+        .reason {
+            padding: 28px;
+            border: 1px solid rgba(255,255,255,.07);
+            background: rgba(255,255,255,.025);
+            cursor: pointer;
+            transition: .3s ease;
         }
-        .reason-card:hover {
-            transform:
-                translateY(-6px);
-            background:
-                rgba(255,255,255,0.06);
+
+        .reason:hover {
+            background: rgba(255,255,255,.045);
+            transform: translateY(-3px);
         }
+
         .reason-number {
-            color: rgba(255,255,255,0.3);
+            color: #ff9dbd;
             font-size: 11px;
             letter-spacing: 2px;
         }
-        .reason-card h3 {
-            margin-top: 50px;
-            font-family:
-                "Playfair Display",
-                serif;
-            font-size: 25px;
+
+        .reason h3 {
+            font-family: "Playfair Display", serif;
+            font-size: 24px;
             font-weight: 500;
+            margin-top: 13px;
         }
-        .reason-card p {
+
+        .reason p {
             max-height: 0;
-            margin-top: 0;
             overflow: hidden;
-            color: rgba(255,255,255,0.58);
+            opacity: 0;
+            color: #9d99a2;
+            line-height: 1.7;
             font-size: 13px;
-            line-height: 1.8;
-            transition:
-                max-height 0.5s ease,
-                margin 0.5s ease;
+            margin-top: 0;
+            transition: .4s ease;
         }
-        .reason-card.open p {
-            max-height: 200px;
-            margin-top: 18px;
+
+        .reason.active p {
+            max-height: 150px;
+            opacity: 1;
+            margin-top: 15px;
         }
-        /* =========================================================
+
+        /* =========================
            TIMELINE
-        ========================================================= */
+        ========================= */
+
         .timeline {
             position: relative;
-            margin-top: 55px;
+            margin-top: 60px;
+            padding-left: 30px;
         }
+
         .timeline::before {
             content: "";
             position: absolute;
+            left: 3px;
             top: 0;
             bottom: 0;
-            left: 50%;
             width: 1px;
-            background:
-                rgba(255,255,255,0.12);
+            background: rgba(255,255,255,.12);
         }
+
         .timeline-item {
             position: relative;
-            width: 50%;
-            padding: 28px;
+            padding: 0 0 55px 35px;
         }
-        .timeline-item:nth-child(odd) {
-            text-align: right;
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
         }
-        .timeline-item:nth-child(even) {
-            margin-left: 50%;
-        }
-        .timeline-dot {
+
+        .timeline-item::before {
+            content: "";
             position: absolute;
-            top: 39px;
-            width: 10px;
-            height: 10px;
+            left: -1px;
+            top: 5px;
+            width: 9px;
+            height: 9px;
             border-radius: 50%;
-            background: #ffffff;
-            box-shadow:
-                0 0 0 6px
-                rgba(255,255,255,0.04);
+            background: #ff9dbd;
+            box-shadow: 0 0 0 5px rgba(255,157,189,.08);
         }
-        .timeline-item:nth-child(odd)
-        .timeline-dot {
-            right: -5px;
-        }
-        .timeline-item:nth-child(even)
-        .timeline-dot {
-            left: -5px;
-        }
-        .timeline-date {
-            color:
-                rgba(255,255,255,0.32);
-            font-size: 10px;
-            font-weight: 600;
+
+        .timeline-small {
+            color: #ff9dbd;
+            font-size: 11px;
             letter-spacing: 3px;
+            text-transform: uppercase;
         }
+
         .timeline-item h3 {
-            margin: 10px 0;
-            font-family:
-                "Playfair Display",
-                serif;
-            font-size: 26px;
+            font-family: "Playfair Display", serif;
+            font-size: 30px;
             font-weight: 500;
+            margin: 10px 0;
         }
+
         .timeline-item p {
-            color:
-                rgba(255,255,255,0.55);
-            font-size: 13px;
+            color: #99959e;
             line-height: 1.8;
+            max-width: 650px;
+            font-size: 14px;
         }
-        /* =========================================================
-           GALLERY
-        ========================================================= */
+
+        /* =========================
+           OUR MEMORIES
+        ========================= */
+
+        .memories-header {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
         .gallery {
-            display: grid;
-            grid-template-columns:
-                repeat(2, 1fr);
-            gap: 15px;
             margin-top: 45px;
+            columns: 3 250px;
+            column-gap: 15px;
         }
+
         .gallery-item {
-            position: relative;
+            break-inside: avoid;
+            margin-bottom: 15px;
             overflow: hidden;
-            border-radius: 20px;
-            background: #161218;
+            border-radius: 5px;
+            background: #111118;
+            cursor: pointer;
         }
-        .gallery-item.large {
-            grid-row: span 2;
-        }
+
         .gallery-item img {
             width: 100%;
-            height: 280px;
-            object-fit: cover;
-            transition:
-                transform 0.7s ease;
+            display: block;
+            transition: transform .6s ease, filter .6s ease;
         }
-        .gallery-item.large img {
-            height: 575px;
-        }
+
         .gallery-item:hover img {
-            transform:
-                scale(1.05);
+            transform: scale(1.04);
+            filter: brightness(1.08);
         }
-        .gallery-caption {
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            padding:
-                35px
-                20px
-                18px;
-            background:
-                linear-gradient(
-                    transparent,
-                    rgba(0,0,0,0.7)
-                );
-            color:
-                rgba(255,255,255,0.8);
-            font-family:
-                "Playfair Display",
-                serif;
-            font-style: italic;
+
+        /* =========================
+           LETTER
+        ========================= */
+
+        .letter-section {
+            text-align: center;
         }
-        /* =========================================================
-           ENVELOPE
-        ========================================================= */
-        .envelope-container {
-            width: min(470px, 100%);
-            margin:
-                50px
-                auto
-                0;
-            cursor: pointer;
+
+        .envelope-wrap {
+            margin: 50px auto 0;
+            width: min(500px, 100%);
             perspective: 1000px;
+            cursor: pointer;
         }
+
         .envelope {
             position: relative;
-            height: 280px;
+            height: 300px;
+            background: #18151b;
+            border: 1px solid rgba(255,255,255,.1);
             overflow: hidden;
-            border-radius: 12px;
-            background: #ddd;
-            box-shadow:
-                0 30px 80px
-                rgba(0,0,0,0.4);
-            transition:
-                transform 0.4s ease;
+            box-shadow: 0 30px 80px rgba(0,0,0,.35);
         }
-        .envelope:hover {
-            transform:
-                translateY(-6px);
-        }
-        .envelope-body {
+
+        .envelope::before {
+            content: "";
             position: absolute;
             inset: 0;
             background:
                 linear-gradient(
                     135deg,
-                    #e8e4df,
-                    #cfcac4
+                    transparent 49.5%,
+                    rgba(255,255,255,.08) 50%,
+                    transparent 50.5%
+                ),
+                linear-gradient(
+                    225deg,
+                    transparent 49.5%,
+                    rgba(255,255,255,.08) 50%,
+                    transparent 50.5%
                 );
         }
+
         .envelope-flap {
             position: absolute;
-            z-index: 2;
+            left: 0;
             top: 0;
+            width: 100%;
+            height: 52%;
+            background: #211b23;
+            clip-path: polygon(0 0, 50% 100%, 100% 0);
+            transform-origin: top;
+            transition: transform .8s ease;
+            z-index: 3;
+        }
+
+        .envelope-heart {
+            position: absolute;
+            z-index: 5;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ff8daf;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 10px 30px rgba(255,100,150,.25);
+            transition: .5s ease;
+        }
+
+        .envelope.open .envelope-flap {
+            transform: rotateX(180deg);
+        }
+
+        .envelope.open .envelope-heart {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(.4);
+        }
+
+        .tap-text {
+            position: absolute;
+            bottom: 22px;
             left: 0;
             width: 100%;
-            height: 190px;
-            background: #f2eee9;
-            clip-path:
-                polygon(
-                    0 0,
-                    100% 0,
-                    50% 76%
-                );
-            transform-origin: top;
-            transition:
-                transform 0.8s ease;
+            z-index: 6;
+            color: #aaa5ae;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
-        .envelope-label {
-            position: absolute;
-            z-index: 4;
-            top: 52%;
-            left: 50%;
-            transform:
-                translate(-50%, -50%);
-            color: #2d2930;
-            font-family:
-                "Playfair Display",
-                serif;
-            font-size: 24px;
-            font-style: italic;
-        }
-        .envelope.opened .envelope-flap {
-            transform:
-                rotateX(180deg);
-        }
-        /* =========================================================
-           LETTER
-        ========================================================= */
+
+        /* =========================
+           LETTER CONTENT
+        ========================= */
+
         .letter {
             display: none;
-            width: min(760px, 100%);
-            margin:
-                35px
-                auto
-                0;
-            padding: 40px;
-            border-radius: 12px;
-            color: #29252a;
-            background: #f4f0e9;
+            margin: 35px auto 0;
+            width: min(720px, 100%);
             text-align: left;
-            font-size: 14px;
-            line-height: 2;
-            box-shadow:
-                0 30px 80px
-                rgba(0,0,0,0.35);
+            padding: 40px;
+            background: #f5eee6;
+            color: #332c30;
+            border-radius: 5px;
+            box-shadow: 0 30px 80px rgba(0,0,0,.4);
+            animation: letterIn .8s ease;
         }
+
         .letter.show {
             display: block;
-            animation:
-                letterReveal
-                1s ease;
         }
-        .letter p {
-            margin-bottom: 20px;
+
+        .letter-title {
+            font-family: "Playfair Display", serif;
+            font-size: 34px;
+            margin-bottom: 30px;
         }
-        .letter-ending {
+
+        .letter-content {
+            font-family: "DM Sans", sans-serif;
+            font-size: 14px;
+            line-height: 2;
+            white-space: pre-line;
+        }
+
+        .letter-signature {
             margin-top: 35px;
-            text-align: center;
-            font-family:
-                "Playfair Display",
-                serif;
-            font-size: 20px;
-            line-height: 1.7;
+            font-family: "Playfair Display", serif;
+            font-size: 22px;
+            text-align: right;
         }
-        @keyframes letterReveal {
+
+        /* =========================
+           FINAL
+        ========================= */
+
+        .final {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+
+        .final-inner {
+            width: 100%;
+        }
+
+        .final-photo {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 35px;
+            border: 1px solid rgba(255,255,255,.2);
+            padding: 5px;
+            background: #111118;
+        }
+
+        .final h2 {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(45px, 8vw, 85px);
+            font-weight: 500;
+        }
+
+        .final-name {
+            color: #ff9dbd;
+            font-size: 13px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-top: 15px;
+        }
+
+        .final p {
+            max-width: 560px;
+            margin: 30px auto;
+            color: #9c98a0;
+            line-height: 1.9;
+        }
+
+        .final-love {
+            font-family: "Playfair Display", serif;
+            font-size: 25px;
+            font-style: italic;
+            color: #eee;
+        }
+
+        .from {
+            margin-top: 40px;
+            color: #77737c;
+            font-size: 11px;
+            letter-spacing: 4px;
+        }
+
+        /* =========================
+           FLOATING HEARTS
+        ========================= */
+
+        .floating-heart {
+            position: fixed;
+            bottom: -30px;
+            color: rgba(255,140,174,.4);
+            pointer-events: none;
+            z-index: 10;
+            animation: floatHeart linear forwards;
+        }
+
+        /* =========================
+           CONFETTI
+        ========================= */
+
+        .confetti {
+            position: fixed;
+            width: 7px;
+            height: 12px;
+            top: -20px;
+            z-index: 999;
+            pointer-events: none;
+            animation: confettiFall 3s linear forwards;
+        }
+
+        /* =========================
+           ANIMATIONS
+        ========================= */
+
+        @keyframes startIn {
             from {
                 opacity: 0;
-                transform:
-                    translateY(30px);
+                transform: translateY(25px);
             }
             to {
                 opacity: 1;
-                transform:
-                    translateY(0);
+                transform: translateY(0);
             }
         }
-        /* =========================================================
-           FINAL
-        ========================================================= */
-        .final-section {
-            position: relative;
-            overflow: hidden;
+
+        @keyframes arrowMove {
+            0%,100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(6px);
+            }
         }
-        .final-photo {
-            width: 210px;
-            height: 270px;
-            margin:
-                0
-                auto
-                40px;
-            object-fit: cover;
-            border-radius: 18px;
-            box-shadow:
-                0 35px 100px
-                rgba(0,0,0,0.55);
+
+        @keyframes letterIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        .final-name {
-            margin-top: 25px;
-            font-family:
-                "Playfair Display",
-                serif;
-            font-size:
-                clamp(38px, 9vw, 78px);
-            font-style: italic;
-            font-weight: 500;
+
+        @keyframes floatHeart {
+            to {
+                transform:
+                    translateY(-110vh)
+                    translateX(var(--move));
+                opacity: 0;
+            }
         }
-        .final-text {
-            max-width: 620px;
-            margin:
-                30px
-                auto
-                0;
-            color:
-                rgba(255,255,255,0.58);
-            font-size: 14px;
-            line-height: 2;
-        }
-        .final-love {
-            margin-top: 45px;
-            font-family:
-                "Playfair Display",
-                serif;
-            font-size:
-                clamp(18px, 4vw, 28px);
-            font-style: italic;
-        }
-        .signature {
-            margin-top: 22px;
-            color:
-                rgba(255,255,255,0.35);
-            font-size: 12px;
-            letter-spacing: 2px;
-        }
-        /* =========================================================
-           CONFETTI
-        ========================================================= */
-        .confetti {
-            position: fixed;
-            top: -20px;
-            width: 6px;
-            height: 12px;
-            z-index: 10000;
-            pointer-events: none;
-            animation:
-                confettiFall
-                linear
-                forwards;
-        }
+
         @keyframes confettiFall {
             to {
                 transform:
@@ -754,980 +790,1064 @@
                 opacity: 0;
             }
         }
-        /* =========================================================
-           FLOATING HEART
-        ========================================================= */
-        .floating-heart {
-            position: fixed;
-            bottom: -30px;
-            z-index: -1;
-            color:
-                rgba(255,255,255,0.12);
-            pointer-events: none;
-            animation:
-                floatingHeart
-                linear
-                forwards;
-        }
-        @keyframes floatingHeart {
-            0% {
-                transform:
-                    translateY(0)
-                    scale(0.8);
-                opacity: 0;
-            }
-            15% {
-                opacity: 1;
-            }
-            100% {
-                transform:
-                    translateY(-110vh)
-                    rotate(25deg)
-                    scale(1.2);
-                opacity: 0;
-            }
-        }
-        /* =========================================================
-           GENERAL ANIMATION
-        ========================================================= */
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform:
-                    translateY(15px);
-            }
-            to {
-                opacity: 1;
-                transform:
-                    translateY(0);
-            }
-        }
-        /* =========================================================
-           MOBILE
-        ========================================================= */
-        @media (max-width: 650px) {
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 800px) {
+
             section {
-                padding:
-                    85px
-                    17px;
+                padding: 85px 0;
             }
-            .cards {
+
+            .container {
+                width: min(100% - 30px, 650px);
+            }
+
+            .hero {
+                padding-top: 80px;
+            }
+
+            .hero-grid {
                 grid-template-columns: 1fr;
+                gap: 55px;
             }
-            .reason-card {
-                min-height: 160px;
+
+            .hero-image-wrap {
+                order: 1;
+                width: 90%;
+                margin: auto;
             }
-            .reason-card h3 {
+
+            .hero-copy {
+                order: 2;
+                text-align: center;
+            }
+
+            .hero-copy p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .scroll-hint {
                 margin-top: 35px;
             }
-            .timeline::before {
-                left: 8px;
-            }
-            .timeline-item,
-            .timeline-item:nth-child(even) {
-                width: 100%;
-                margin-left: 0;
-                padding:
-                    25px
-                    15px
-                    25px
-                    35px;
-                text-align: left;
-            }
-            .timeline-item:nth-child(odd)
-            .timeline-dot,
-            .timeline-item:nth-child(even)
-            .timeline-dot {
-                left: 3px;
-                right: auto;
-            }
-            .gallery {
+
+            .reasons {
                 grid-template-columns: 1fr;
             }
-            .gallery-item.large {
-                grid-row: auto;
+
+            .gallery {
+                columns: 2 150px;
             }
-            .gallery-item img,
-            .gallery-item.large img {
-                height: 390px;
+
+            .memories-header {
+                display: block;
             }
+
             .letter {
-                padding:
-                    27px
-                    22px;
+                padding: 28px 22px;
+            }
+
+            .letter-title {
+                font-size: 29px;
+            }
+
+            .letter-content {
                 font-size: 13px;
                 line-height: 1.9;
             }
+        }
+
+        @media (max-width: 450px) {
+
+            .start-content h1 {
+                font-size: 45px;
+            }
+
+            .hero-copy h1 {
+                font-size: 52px;
+            }
+
+            .gallery {
+                columns: 2 130px;
+                column-gap: 10px;
+            }
+
+            .gallery-item {
+                margin-bottom: 10px;
+            }
+
+            .game-box {
+                padding: 25px 15px;
+            }
+
+            .heart-area {
+                height: 220px;
+            }
+
             .envelope {
-                height: 230px;
+                height: 250px;
             }
-            .envelope-flap {
-                height: 155px;
-            }
-            .game-card {
-                padding: 15px;
-            }
-            .game-area {
-                height: 230px;
+
+            .final-photo {
+                width: 125px;
+                height: 125px;
             }
         }
     </style>
 </head>
-<body class="locked">
-    <!-- =========================================================
-         BACKGROUND
-    ========================================================= -->
+
+<body class="lock">
+
+    <!-- BACKGROUND -->
     <div class="background"></div>
-    <div class="noise"></div>
-    <!-- =========================================================
-         MUSIC
-    ========================================================= -->
-    <audio
-        id="music"
-        loop
-        preload="auto"
-    >
-        <source
-            src="romantic sound.mp3"
-            type="audio/mpeg"
-        >
+
+    <!-- =========================
+         AUDIO
+    ========================= -->
+
+    <audio id="music" loop preload="auto">
+        <source src="romantic sound.mp3" type="audio/mpeg">
     </audio>
-    <button
-        id="musicButton"
-        class="music-button"
-        aria-label="Kontrol musik"
-        title="Musik"
-    >
-        ♫
-    </button>
-    <!-- =========================================================
+
+    <!-- =========================
          START SCREEN
-    ========================================================= -->
-    <div
-        id="startScreen"
-        class="start-screen"
-    >
+    ========================= -->
+
+    <div id="startScreen">
+
         <div class="start-content">
-            <div class="start-date">
+
+            <div class="date-small">
                 19 September
             </div>
-            <h1 class="start-title">
+
+            <h1>
                 ada sesuatu<br>
                 untuk kamu.
             </h1>
-            <p class="start-description">
-                sebuah kejutan kecil yang dibuat khusus
-                untuk seseorang yang hari ini sedang
-                bertambah umur.
+
+            <p>
+                bukan sesuatu yang mahal,
+                bukan juga sesuatu yang sempurna.
+                cuma sedikit cerita dan doa
+                yang aku buat khusus untuk kamu.
             </p>
-            <button
-                id="openButton"
-                class="open-button"
-            >
+
+            <button class="open-btn" id="openWebsite">
                 buka kejutan
             </button>
+
         </div>
+
     </div>
-    <!-- =========================================================
-         MAIN CONTENT
-    ========================================================= -->
+
+    <!-- =========================
+         MUSIC BUTTON
+    ========================= -->
+
+    <button
+        class="music-control"
+        id="musicButton"
+        aria-label="Kontrol musik"
+    >
+        ♪
+    </button>
+
+
     <main>
-        <!-- =====================================================
+
+        <!-- =========================
              HERO
-        ====================================================== -->
-        <section>
-            <div
-                class="container center reveal"
-            >
-                <img
-                    src="foto1.jpg"
-                    alt="Akifa"
-                    class="hero-photo"
-                >
-                <div class="eyebrow">
-                    19 September
+        ========================= -->
+
+        <section class="hero">
+
+            <div class="container hero-grid">
+
+                <div class="hero-image-wrap">
+
+                    <img
+                        class="hero-image"
+                        src="f68029c9-1666-4509-a42b-a68bc3d7b048.JPG"
+                        alt="Akifa"
+                    >
+
                 </div>
-                <h2 class="main-title">
-                    happy birthday,<br>
-                    Akifa.
-                </h2>
-                <p class="description">
-                    hari ini seseorang yang begitu spesial
-                    sedang bertambah satu tahun lagi.
-                    semoga halaman kecil ini bisa membuat
-                    hari kamu sedikit lebih berarti.
-                </p>
-                <div class="scroll-hint">
-                    SCROLL PELAN-PELAN
+
+                <div class="hero-copy">
+
+                    <div class="date">
+                        19 SEPTEMBER
+                    </div>
+
+                    <h1>
+                        happy<br>
+                        birthday,<br>
+                        <em>Akifa.</em>
+                    </h1>
+
+                    <p>
+                        hari ini bukan cuma tentang bertambahnya
+                        umur kamu. hari ini adalah tentang semua
+                        perjalanan yang sudah kamu lewati,
+                        semua hal yang sudah kamu perjuangkan,
+                        dan semua hal indah yang masih menunggu
+                        kamu di depan sana.
+                    </p>
+
+                    <div class="scroll-hint">
+                        scroll perlahan
+                        <span>↓</span>
+                    </div>
+
                 </div>
+
             </div>
+
         </section>
-        <!-- =====================================================
+
+
+        <!-- =========================
              MINI GAME
-        ====================================================== -->
+        ========================= -->
+
         <section>
-            <div
-                class="container center reveal"
-            >
-                <div class="eyebrow">
-                    sebelum lanjut...
+
+            <div class="container">
+
+                <div class="section-label">
+                    a little game
                 </div>
-                <h2 class="main-title">
+
+                <h2 class="section-title">
                     cari 3 hati.
                 </h2>
-                <p class="description">
-                    ada tiga hati yang tersembunyi di sini.
-                    temukan semuanya untuk membuka
-                    bagian berikutnya.
+
+                <p class="section-description">
+                    sebelum lanjut, ada tiga hati kecil yang
+                    sengaja aku sembunyikan. coba temukan semuanya.
                 </p>
-                <div class="game-card">
-                    <div
-                        id="gameArea"
-                        class="game-area"
-                    ></div>
-                    <div class="game-info">
-                        ditemukan:
-                        <strong>
-                            <span id="heartCount">
-                                0
-                            </span>
-                            / 3
-                        </strong>
+
+                <div class="game-box">
+
+                    <h3>
+                        temukan semuanya
+                    </h3>
+
+                    <p>
+                        klik hati yang kamu temukan.
+                    </p>
+
+                    <div class="heart-area">
+
+                        <button class="heart" data-heart="1">
+                            ♥
+                        </button>
+
+                        <button class="heart" data-heart="2">
+                            ♥
+                        </button>
+
+                        <button class="heart" data-heart="3">
+                            ♥
+                        </button>
+
                     </div>
-                    <div
-                        id="gameComplete"
-                        class="game-complete"
-                    >
-                        semuanya ketemu.
-                        <br>
-                        sekarang kamu boleh lanjut.
+
+                    <div class="counter">
+                        hati ditemukan:
+                        <strong id="heartCounter">0</strong>/3
                     </div>
+
                 </div>
+
             </div>
+
         </section>
-        <!-- =====================================================
-             REASONS
-        ====================================================== -->
+
+
+        <!-- =========================
+             ABOUT HER
+        ========================= -->
+
         <section>
-            <div
-                class="container reveal"
-            >
-                <div class="eyebrow center">
+
+            <div class="container">
+
+                <div class="section-label">
                     sedikit tentang kamu
                 </div>
-                <h2 class="main-title center">
-                    alasan sederhana.
+
+                <h2 class="section-title">
+                    ada banyak hal<br>
+                    yang aku suka.
                 </h2>
-                <div class="cards">
-                    <article
-                        class="reason-card"
-                        onclick="toggleReason(this)"
-                    >
+
+                <p class="section-description">
+                    mungkin beberapa hal ini sederhana,
+                    tapi justru hal-hal kecil seperti inilah
+                    yang membuat kamu menjadi seseorang
+                    yang spesial.
+                </p>
+
+                <div class="reasons">
+
+                    <div class="reason">
+
                         <div class="reason-number">
                             01
                         </div>
+
                         <h3>
-                            senyummu
+                            cara kamu tersenyum
                         </h3>
+
                         <p>
-                            salah satu hal kecil tentang kamu
-                            yang selalu punya cara sendiri
-                            untuk membuat suasana terasa
-                            lebih baik.
+                            senyum kamu punya cara sendiri
+                            untuk membuat suasana yang awalnya
+                            biasa saja terasa jauh lebih baik.
                         </p>
-                    </article>
-                    <article
-                        class="reason-card"
-                        onclick="toggleReason(this)"
-                    >
+
+                    </div>
+
+
+                    <div class="reason">
+
                         <div class="reason-number">
                             02
                         </div>
+
                         <h3>
-                            caramu bercerita
+                            cara kamu bercerita
                         </h3>
+
                         <p>
-                            cerita kamu selalu punya tempat
-                            untuk didengarkan, bahkan untuk
-                            hal-hal yang menurutmu sederhana.
+                            aku senang ketika kamu cerita tentang
+                            kehidupan kamu, sekecil apapun itu.
+                            rasanya selalu menyenangkan bisa
+                            mendengarkan cerita dari kamu.
                         </p>
-                    </article>
-                    <article
-                        class="reason-card"
-                        onclick="toggleReason(this)"
-                    >
+
+                    </div>
+
+
+                    <div class="reason">
+
                         <div class="reason-number">
                             03
                         </div>
+
                         <h3>
-                            hal kecil
+                            sisi kecil kamu
                         </h3>
+
                         <p>
-                            bukan selalu tentang sesuatu
-                            yang besar. terkadang justru
-                            hal kecil tentang kamu yang
-                            paling lama diingat.
+                            ada sisi kamu yang mungkin tidak
+                            semua orang tahu. sisi kecil,
+                            manja, lucu, dan sederhana itu
+                            justru menjadi salah satu bagian
+                            yang paling aku suka.
                         </p>
-                    </article>
-                    <article
-                        class="reason-card"
-                        onclick="toggleReason(this)"
-                    >
+
+                    </div>
+
+
+                    <div class="reason">
+
                         <div class="reason-number">
                             04
                         </div>
+
                         <h3>
-                            kamu
+                            kamu yang apa adanya
                         </h3>
+
                         <p>
-                            karena pada akhirnya alasan
-                            paling sederhananya adalah:
-                            kamu memang seseorang yang
-                            sangat berarti.
+                            tidak harus selalu sempurna.
+                            menjadi diri kamu sendiri sudah
+                            cukup untuk membuat seseorang
+                            merasa bersyukur pernah mengenal kamu.
                         </p>
-                    </article>
+
+                    </div>
+
                 </div>
+
             </div>
+
         </section>
-        <!-- =====================================================
-             TIMELINE
-        ====================================================== -->
+
+
+        <!-- =========================
+             STORY
+        ========================= -->
+
         <section>
-            <div
-                class="container reveal"
-            >
-                <div class="eyebrow center">
+
+            <div class="container">
+
+                <div class="section-label">
                     our little story
                 </div>
-                <h2 class="main-title center">
+
+                <h2 class="section-title">
                     beberapa momen.
                 </h2>
+
                 <div class="timeline">
-                    <article class="timeline-item">
-                        <span class="timeline-dot"></span>
-                        <div class="timeline-date">
-                            FIRST
+
+                    <div class="timeline-item">
+
+                        <div class="timeline-small">
+                            first
                         </div>
+
                         <h3>
-                            awal semuanya
+                            sejak awal mengenal kamu
                         </h3>
+
                         <p>
-                            mungkin awalnya terlihat seperti
-                            sesuatu yang biasa saja, tapi
-                            ternyata menjadi awal dari
-                            banyak cerita.
+                            ada banyak hal yang awalnya terasa
+                            sederhana. ngobrol, bercanda,
+                            saling cerita, sampai akhirnya
+                            semua hal kecil itu menjadi sesuatu
+                            yang berarti.
                         </p>
-                    </article>
-                    <article class="timeline-item">
-                        <span class="timeline-dot"></span>
-                        <div class="timeline-date">
-                            MOMENT
+
+                    </div>
+
+
+                    <div class="timeline-item">
+
+                        <div class="timeline-small">
+                            moment
                         </div>
+
                         <h3>
-                            momen kecil
+                            semakin mengenal
                         </h3>
+
                         <p>
-                            hal-hal sederhana yang akhirnya
-                            menjadi bagian dari kenangan
-                            yang ingin terus disimpan.
+                            semakin lama mengenal kamu,
+                            semakin banyak hal yang aku tahu.
+                            dari kebiasaan kecil sampai cerita
+                            yang kamu bagi. semuanya menjadi
+                            bagian dari perjalanan yang berharga.
                         </p>
-                    </article>
-                    <article class="timeline-item">
-                        <span class="timeline-dot"></span>
-                        <div class="timeline-date">
-                            TODAY
+
+                    </div>
+
+
+                    <div class="timeline-item">
+
+                        <div class="timeline-small">
+                            today
                         </div>
+
                         <h3>
-                            19 september
+                            hari ini
                         </h3>
+
                         <p>
-                            hari dimana perempuan favorit
-                            Rapi bertambah satu tahun lagi.
+                            sekarang kamu sudah bertambah umur.
+                            semoga kamu terus tumbuh menjadi
+                            versi terbaik dari diri kamu sendiri.
+                            pelan-pelan saja, tidak perlu terburu-buru.
                         </p>
-                    </article>
+
+                    </div>
+
                 </div>
+
             </div>
+
         </section>
-        <!-- =====================================================
+
+
+        <!-- =========================
              OUR MEMORIES
-        ====================================================== -->
-        <section>
-            <div
-                class="container reveal"
-            >
-                <div class="eyebrow center">
-                    OUR MEMORIES
+        ========================= -->
+
+        <section id="memories">
+
+            <div class="container">
+
+                <div class="memories-header">
+
+                    <div>
+
+                        <div class="section-label">
+                            memories
+                        </div>
+
+                        <h2 class="section-title">
+                            OUR MEMORIES
+                        </h2>
+
+                    </div>
+
                 </div>
+
+
                 <div class="gallery">
-                    <div
-                        class="gallery-item large"
-                    >
-                        <img
-                            src="foto1.jpg"
-                            alt="Kenangan 1"
-                        >
-                        <div class="gallery-caption">
-                            satu dari banyak momen yang indah.
-                        </div>
-                    </div>
+
                     <div class="gallery-item">
                         <img
-                            src="foto2.jpg"
-                            alt="Kenangan 2"
+                            src="0c71ac6f-9d63-4f74-aa96-f70463dcc2ed.JPG"
+                            alt="memory"
+                            loading="lazy"
                         >
-                        <div class="gallery-caption">
-                            little moment.
-                        </div>
                     </div>
+
                     <div class="gallery-item">
                         <img
-                            src="foto3.jpg"
-                            alt="Kenangan 3"
+                            src="24e220db-c946-45fd-936e-1ede94078789.JPG"
+                            alt="memory"
+                            loading="lazy"
                         >
-                        <div class="gallery-caption">
-                            another memory.
-                        </div>
                     </div>
+
                     <div class="gallery-item">
                         <img
-                            src="foto4.jpg"
-                            alt="Kenangan 4"
+                            src="269193ed-3aa4-41ce-9dbb-8f3b505ca989.JPG"
+                            alt="memory"
+                            loading="lazy"
                         >
-                        <div class="gallery-caption">
-                            tetap disimpan.
-                        </div>
                     </div>
+
                     <div class="gallery-item">
                         <img
-                            src="foto5.jpg"
-                            alt="Kenangan 5"
+                            src="28e14fc3-910b-45fe-a12b-65dfd53694ad.JPG"
+                            alt="memory"
+                            loading="lazy"
                         >
-                        <div class="gallery-caption">
-                            untuk diingat.
-                        </div>
                     </div>
+
+                    <div class="gallery-item">
+                        <img
+                            src="678e351d-98f1-4f84-8d22-2bdc8bdd76de.JPG"
+                            alt="memory"
+                            loading="lazy"
+                        >
+                    </div>
+
+                    <div class="gallery-item">
+                        <img
+                            src="88b519d2-d644-4ec4-8771-3f2bb5da9166.JPG"
+                            alt="memory"
+                            loading="lazy"
+                        >
+                    </div>
+
+                    <div class="gallery-item">
+                        <img
+                            src="9b0e3102-144e-41a4-8ccf-599669b16f2e.JPG"
+                            alt="memory"
+                            loading="lazy"
+                        >
+                    </div>
+
+                    <div class="gallery-item">
+                        <img
+                            src="b4cf25be-e032-4298-aa42-e09ebefc14c6.JPG"
+                            alt="memory"
+                            loading="lazy"
+                        >
+                    </div>
+
+                    <div class="gallery-item">
+                        <img
+                            src="cd8b1e27-297d-4796-926d-762a93e7cc8c.JPG"
+                            alt="memory"
+                            loading="lazy"
+                        >
+                    </div>
+
+                    <div class="gallery-item">
+                        <img
+                            src="cd9611e8-8b9d-41e7-b170-77d3eeb12bbd.JPG"
+                            alt="memory"
+                            loading="lazy"
+                        >
+                    </div>
+
+                    <div class="gallery-item">
+                        <img
+                            src="f68029c9-1666-4509-a42b-a68bc3d7b048.JPG"
+                            alt="memory"
+                            loading="lazy"
+                        >
+                    </div>
+
+                    <div class="gallery-item">
+                        <img
+                            src="foto kecil.JPG"
+                            alt="memory"
+                            loading="lazy"
+                        >
+                    </div>
+
+                    <div class="gallery-item">
+                        <img
+                            src="tambahan.JPG"
+                            alt="memory"
+                            loading="lazy"
+                        >
+                    </div>
+
                 </div>
+
             </div>
+
         </section>
-        <!-- =====================================================
+
+
+        <!-- =========================
              LETTER
-        ====================================================== -->
-        <section>
-            <div
-                class="container center reveal"
-            >
-                <div class="eyebrow">
-                    sebuah surat
+        ========================= -->
+
+        <section class="letter-section">
+
+            <div class="container">
+
+                <div class="section-label">
+                    one more thing
                 </div>
-                <h2 class="main-title">
-                    untuk kamu.
+
+                <h2 class="section-title">
+                    ada surat untuk kamu.
                 </h2>
-                <p class="description">
-                    ada sesuatu yang ingin Rapi sampaikan.
-                    baca pelan-pelan ya.
+
+                <p class="section-description" style="margin-left:auto;margin-right:auto;">
+                    buka pelan-pelan.
                 </p>
-                <!-- ENVELOPE -->
-                <div
-                    id="envelopeContainer"
-                    class="envelope-container"
-                >
-                    <div
-                        id="envelope"
-                        class="envelope"
-                        onclick="openLetter()"
-                    >
-                        <div class="envelope-body"></div>
+
+
+                <div class="envelope-wrap" id="envelopeWrap">
+
+                    <div class="envelope" id="envelope">
+
                         <div class="envelope-flap"></div>
-                        <div class="envelope-label">
-                            untuk Akifa
+
+                        <div class="envelope-heart">
+                            ♥
                         </div>
+
+                        <div class="tap-text">
+                            tap to open
+                        </div>
+
                     </div>
+
                 </div>
-                <!-- LETTER CONTENT -->
-                <article
-                    id="letter"
-                    class="letter"
-                >
-                    <p>
-                        haloo perempuan favorit ku di tanggal
-                        19 september ini kamu bertambah umurnya,
-                        aku mau kamu baca pesan ini dari aku yaa.
-                    </p>
-                    <p>
-                        aku harap kamu di saat bertambah umur ini
-                        menjadi perempuan sering berbuat baik dalam
-                        hal apapun, panjang umur, sehat selalu, dan
-                        selalu jadi perempuan yang selalu cantik
-                        berhati bersih pinter bijak banyak uang itu
-                        yaa aamiin yarobal allaminn.
-                    </p>
-                    <p>
-                        Kamu harus inget ini adalah baru masa
-                        pertumbuhan kamu dan kamu harus tetep
-                        semangat dalam menjalani kehidupan ini,
-                        aku bakal jadi seseorang yang ada di
-                        kehidupan kamu disaat kamu sedang
-                        menjalani ini semua.
-                    </p>
-                    <p>
-                        aku akan selalu disini sayang kamu cintai
-                        kamu setulus hatiku, aku temenin kamu
-                        disela sela kamu lagi cape atau butuh
-                        tempat cerita pasti aku akan luangin
-                        waktu aku untuk kamu.
-                    </p>
-                    <p>
-                        capaii semua mimpi kamuu ituu yaaa wishlist
-                        kamu dan cita cita kamuu yang kamu impikan
-                        itu, i will be proud of you disaat kamu bisa
-                        capai semua itu jika emang harus pelan'
-                        aku akan selalu merayakan pencapaian kamu
-                        di dunia ini..
-                    </p>
-                    <p>
-                        Aku sayang banget sama kamu cinta banget
-                        sama kamu aku cuma harap kita bisa tetep
-                        komunikasi lebih baik dan jauh lebih baik
-                        saat ini, aku gapernah bosen ataupun nyesel
-                        kenal kamu semenjak kenal kamu hidupku banyak
-                        senengnya banyak manjanya karena kamu selalu
-                        anggep aku bayi kecil kamu, aku gamau
-                        kehilangan ituu.
-                    </p>
-                    <p>
-                        terimakasih banyak untuk kamu karena uda
-                        berjuang sejauh ini dan usaha kamu selama ini
-                        disaat umur kamu belasan ini semoga kamu
-                        tetep terus konsisten dengan pencapaian kamu
-                        ini ya, dan soal kalo cape atau butuh tempat
-                        cerita bisa ke aku ya? aku akan selalu respon
-                        cerita kamu dengan baik karena aku seneng
-                        kamu cerita sama akuu soal hidup kamuu.
-                    </p>
-                    <p>
-                        Jangan kurangin ya nangis nya kalo capee
-                        karena itu ga baik walaupun after kamu nangis
-                        kamu jauh lebih baik tapi bagiku itu gaada
-                        yang baik kalo kamu kalo cape harus nangis...
-                        aku gamau dan ga tega liat kamu nangis aku
-                        maunya kamu nangis dengan semua pencapaian
-                        kamu nanti, di kurangin pelan' ya sayangg
-                        aku ga buru'in kamu.
-                    </p>
-                    <p>
-                        aku disini akan selalu disini untuk kamu
-                        kapanpun dan dimanapun ituu sayangg, aku juga
-                        minta maaf ya kalo aku suka buat salah sama
-                        kamu bandel sama kamu maaf selama hubungan
-                        sama aku terkadang bosen.
-                    </p>
-                    <p>
-                        aku akan tunggu cinta yang setara dari kamu
-                        versi terbaik kamu mulai sekarang inii aku
-                        akan selalu nunggu banget moment itu dan jika
-                        kamu bisa buktiin ke aku aku bakalan bangga
-                        dan seneng karena kamu bisa tepatin omongan
-                        itu ke aku, terimakasih ya sayangku bakpaoo
-                        aku yang paling gemes iniii.
-                    </p>
-                    <div class="letter-ending">
-                        AKUUU SAYANGG KAMU<br>
-                        CINTA KAMU SELAMANYA<br><br>
-                        AKIFA NAILA ASSYIFATU SAHRA.<br><br>
-                        🤍🤍
+
+
+                <div class="letter" id="letter">
+
+                    <div class="letter-title">
+                        untuk kamu, Akifa.
                     </div>
-                </article>
+
+                    <div class="letter-content">
+haloo perempuan favorit ku di tanggal 19 september ini kamu bertambah umurnya, aku mau kamu baca pesan ini dari aku yaa.
+
+aku harap kamu di saat bertambah umur ini menjadi perempuan sering berbuat baik dalam hal apapun, panjang umur, sehat selalu, dan selalu jadi perempuan yang selalu cantik berhati bersih pinter bijak banyak uang itu yaa aamiin yarobal allaminn.
+
+Kamu harus inget ini adalah baru masa pertumbuhan kamu dan kamu harus tetep semangat dalam menjalani kehidupan ini, aku bakal jadi seseorang yang ada di kehidupan kamu disaat kamu sedang menjalani ini semua.
+
+aku akan selalu disini sayang kamu cintai kamu setulus hatiku, aku temenin kamu disela sela kamu lagi cape atau butuh tempat cerita pasti aku akan luangin waktu aku untuk kamu.
+
+capaii semua mimpi kamuu ituu yaaa wishlist kamu dan cita cita kamuu yang kamu impikan itu,
+
+i will be proud of you disaat kamu bisa capai semua itu jika emang harus pelan' aku akan selalu merayakan pencapaian kamu di dunia ini..
+
+Aku sayang banget sama kamu cinta banget sama kamu aku cuma harap kita bisa tetep komunikasi lebih baik dan jauh lebih baik saat ini, aku gapernah bosen ataupun nyesel kenal kamu semenjak kenal kamu hidupku banyak senengnya banyak manjanya karena kamu selalu  anggep aku bayi kecil kamu, aku gamau kehilangan ituu.
+
+terimakasih banyak untuk kamu karena uda berjuang sejauh ini dan usaha kamu selama ini disaat umur kamu belasan ini semoga kamu tetep terus konsisten dengan pencapaian kamu ini ya, dan soal kalo cape atau butuh tempat cerita bisa ke aku ya?aku akan selalu respon cerita kamu dengan baik karena aku seneng kamu cerita sama akuu soal hidup kamuu.
+
+Jangan kurangin ya nangis nya kalo capee karena itu ga baik walaupun after kamu nangis kamu jauh lebih baik tapi bagiku itu gaada yang baik kalo kamu kalo cape harus nangis... aku gamau dan ga tega liat kamu nangis aku maunya kamu nangis dengan semua pencapaian kamu nanti, di kurangin pelan' ya sayangg aku ga buru'in kamu.
+
+aku disini akan selalu disini untuk kamu kapanpun dan dimanapun ituu sayangg, aku juga minta maaf ya kalo aku suka buat salah sama kamu bandel sama kamu maaf selama hubungan sama aku terkadang bosen.
+
+aku akan tunggu cinta yang setara dari kamu versi terbaik kamu mulai sekarang inii aku akan selalu nunggu banget moment itu dan jika kamu bisa buktiin ke aku aku bakalan bangga dan seneng karena kamu bisa tepatin omongan itu ke aku, terimakasih ya sayangku bakpaoo aku yang paling gemes iniii.
+
+AKUUU SAYANGG KAMU CINTA KAMU SELAMANYA AKIFA NAILA ASSYIFATU SAHRA.
+
+🤍🤍
+                    </div>
+
+                    <div class="letter-signature">
+                        — RAPI
+                    </div>
+
+                </div>
+
             </div>
+
         </section>
-        <!-- =====================================================
-             FINAL SURPRISE
-        ====================================================== -->
-        <section class="final-section">
-            <div
-                class="container center reveal"
-            >
+
+
+        <!-- =========================
+             FINAL
+        ========================= -->
+
+        <section class="final">
+
+            <div class="container final-inner">
+
                 <img
-                    src="foto5.jpg"
-                    alt="Akifa"
                     class="final-photo"
+                    src="tambahan.JPG"
+                    alt="Akifa"
+                    loading="lazy"
                 >
-                <div class="eyebrow">
-                    satu hal terakhir
-                </div>
-                <h2 class="main-title">
+
+                <h2>
                     happy birthday.
                 </h2>
+
                 <div class="final-name">
                     Akifa Naila
                 </div>
-                <p class="final-text">
-                    semoga di umur yang baru ini kamu selalu
-                    diberikan kesehatan, panjang umur,
-                    kebahagiaan, rezeki, dan kesempatan untuk
-                    mencapai semua hal yang kamu impikan.
-                    <br><br>
-                    kalau jalannya harus pelan, tidak apa-apa.
-                    kamu tidak perlu terburu-buru.
-                    yang penting kamu tetap berjalan dan
-                    terus menjadi versi terbaik dari dirimu.
-                    <br><br>
-                    dan kalau suatu hari kamu merasa lelah,
-                    ingat bahwa ada seseorang yang selalu ingin
-                    mendengarkan cerita kamu.
+
+                <p>
+                    semoga umur baru ini membawa lebih banyak
+                    kebahagiaan, kesehatan, keberanian,
+                    kesempatan, dan mimpi-mimpi yang akhirnya
+                    bisa kamu wujudkan satu per satu.
                 </p>
+
                 <div class="final-love">
-                    AKUUU SAYANGG KAMU CINTA KAMU SELAMANYA
+                    tetap jadi kamu yang aku kenal.
                 </div>
-                <div class="signature">
+
+                <div class="from">
                     — RAPI
                 </div>
+
             </div>
+
         </section>
+
     </main>
-    <!-- =========================================================
+
+
+    <!-- =========================
          JAVASCRIPT
-    ========================================================= -->
+    ========================= -->
+
     <script>
-        /* =====================================================
-           ELEMENTS
-        ===================================================== */
-        const startScreen =
-            document.getElementById(
-                "startScreen"
-            );
-        const openButton =
-            document.getElementById(
-                "openButton"
-            );
-        const music =
-            document.getElementById(
-                "music"
-            );
-        const musicButton =
-            document.getElementById(
-                "musicButton"
-            );
-        const gameArea =
-            document.getElementById(
-                "gameArea"
-            );
-        const heartCount =
-            document.getElementById(
-                "heartCount"
-            );
-        const gameComplete =
-            document.getElementById(
-                "gameComplete"
-            );
-        const envelope =
-            document.getElementById(
-                "envelope"
-            );
-        const letter =
-            document.getElementById(
-                "letter"
-            );
-        /* =====================================================
-           START EXPERIENCE
-        ===================================================== */
-        openButton.addEventListener(
-            "click",
-            () => {
-                startScreen.classList.add(
-                    "hide"
-                );
-                document.body.classList.remove(
-                    "locked"
-                );
-                musicButton.classList.add(
-                    "visible"
-                );
-                music
-                    .play()
-                    .then(() => {
-                        musicButton.classList.add(
-                            "playing"
-                        );
-                    })
-                    .catch(() => {
-                        console.log(
-                            "Musik belum dapat dimainkan."
-                        );
-                    });
-                createConfetti(35);
-                createFloatingHearts();
+
+        /* =========================
+           START WEBSITE
+        ========================= */
+
+        const startScreen = document.getElementById("startScreen");
+        const openWebsite = document.getElementById("openWebsite");
+        const music = document.getElementById("music");
+        const musicButton = document.getElementById("musicButton");
+
+        let musicPlaying = false;
+
+        openWebsite.addEventListener("click", async () => {
+
+            startScreen.classList.add("hide");
+            document.body.classList.remove("lock");
+
+            try {
+                await music.play();
+                musicPlaying = true;
+                musicButton.textContent = "♫";
+            } catch (error) {
+                musicPlaying = false;
+                musicButton.textContent = "♪";
             }
-        );
-        /* =====================================================
+
+            createFloatingHearts();
+
+            setTimeout(() => {
+                startScreen.style.display = "none";
+            }, 900);
+
+        });
+
+
+        /* =========================
            MUSIC CONTROL
-        ===================================================== */
-        musicButton.addEventListener(
-            "click",
-            () => {
-                if (music.paused) {
-                    music.play();
-                    musicButton.classList.add(
-                        "playing"
-                    );
-                } else {
-                    music.pause();
-                    musicButton.classList.remove(
-                        "playing"
-                    );
+        ========================= */
+
+        musicButton.addEventListener("click", async () => {
+
+            if (music.paused) {
+
+                try {
+                    await music.play();
+                    musicPlaying = true;
+                    musicButton.textContent = "♫";
+                } catch (error) {
+                    console.log(error);
                 }
+
+            } else {
+
+                music.pause();
+                musicPlaying = false;
+                musicButton.textContent = "♪";
+
             }
-        );
-        /* =====================================================
-           SCROLL REVEAL
-        ===================================================== */
-        const revealObserver =
-            new IntersectionObserver(
-                (entries) => {
-                    entries.forEach(
-                        (entry) => {
-                            if (
-                                entry.isIntersecting
-                            ) {
-                                entry.target.classList.add(
-                                    "visible"
-                                );
-                            }
-                        }
-                    );
-                },
-                {
-                    threshold: 0.12
-                }
-            );
-        document
-            .querySelectorAll(".reveal")
-            .forEach((element) => {
-                revealObserver.observe(
-                    element
-                );
-            });
-        /* =====================================================
+
+        });
+
+
+        /* =========================
            REASON CARDS
-        ===================================================== */
-        function toggleReason(card) {
-            card.classList.toggle(
-                "open"
-            );
-        }
-        /* =====================================================
+        ========================= */
+
+        const reasons = document.querySelectorAll(".reason");
+
+        reasons.forEach(reason => {
+
+            reason.addEventListener("click", () => {
+
+                reason.classList.toggle("active");
+
+            });
+
+        });
+
+
+        /* =========================
            MINI GAME
-        ===================================================== */
+        ========================= */
+
+        const hearts = document.querySelectorAll(".heart");
+        const heartCounter = document.getElementById("heartCounter");
+
         let foundHearts = 0;
-        function createGameHeart(index) {
-            const heart =
-                document.createElement(
-                    "button"
-                );
-            heart.className =
-                "game-heart";
-            heart.type =
-                "button";
-            heart.innerHTML =
-                "♡";
-            heart.setAttribute(
-                "aria-label",
-                `Hati ${index + 1}`
-            );
-            heart.style.left =
-                `${8 + Math.random() * 82}%`;
-            heart.style.top =
-                `${8 + Math.random() * 75}%`;
-            heart.addEventListener(
-                "click",
-                () => {
-                    if (
-                        heart.classList.contains(
-                            "found"
-                        )
-                    ) {
-                        return;
-                    }
-                    heart.classList.add(
-                        "found"
-                    );
-                    foundHearts++;
-                    heartCount.textContent =
-                        foundHearts;
-                    createConfetti(8);
-                    if (
-                        foundHearts === 3
-                    ) {
-                        setTimeout(
-                            () => {
-                                gameComplete.classList.add(
-                                    "show"
-                                );
-                                createConfetti(
-                                    35
-                                );
-                            },
-                            500
-                        );
-                    }
+
+        hearts.forEach(heart => {
+
+            heart.addEventListener("click", () => {
+
+                if (heart.classList.contains("found")) {
+                    return;
                 }
-            );
-            gameArea.appendChild(
-                heart
-            );
-        }
-        for (
-            let i = 0;
-            i < 3;
-            i++
-        ) {
-            createGameHeart(i);
-        }
-        /* =====================================================
-           OPEN LETTER
-        ===================================================== */
-        let letterOpened = false;
-        function openLetter() {
-            if (letterOpened) {
-                return;
+
+                heart.classList.add("found");
+
+                foundHearts++;
+
+                heartCounter.textContent = foundHearts;
+
+                if (foundHearts === 3) {
+
+                    createConfetti(80);
+
+                    setTimeout(() => {
+
+                        alert(
+                            "semua hati sudah ditemukan 🤍\n\nsekarang lanjutkan perjalanan kecil ini."
+                        );
+
+                    }, 500);
+
+                }
+
+            });
+
+        });
+
+
+        /* =========================
+           ENVELOPE
+        ========================= */
+
+        const envelope = document.getElementById("envelope");
+        const letter = document.getElementById("letter");
+
+        envelope.addEventListener("click", () => {
+
+            envelope.classList.toggle("open");
+
+            if (envelope.classList.contains("open")) {
+
+                setTimeout(() => {
+
+                    letter.classList.add("show");
+
+                    setTimeout(() => {
+
+                        letter.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start"
+                        });
+
+                    }, 200);
+
+                }, 500);
+
             }
-            letterOpened = true;
-            envelope.classList.add(
-                "opened"
-            );
-            setTimeout(
-                () => {
-                    letter.classList.add(
-                        "show"
-                    );
-                    createConfetti(
-                        30
-                    );
-                    setTimeout(
-                        () => {
-                            letter.scrollIntoView(
-                                {
-                                    behavior: "smooth",
-                                    block: "center"
-                                }
-                            );
-                        },
-                        350
-                    );
-                },
-                750
-            );
-        }
-        /* =====================================================
-           CONFETTI
-        ===================================================== */
-        function createConfetti(
-            amount = 30
-        ) {
-            for (
-                let i = 0;
-                i < amount;
-                i++
-            ) {
-                const piece =
-                    document.createElement(
-                        "div"
-                    );
-                piece.className =
-                    "confetti";
-                piece.style.left =
-                    `${Math.random() * 100}vw`;
-                piece.style.animationDuration =
-                    `${2.5 + Math.random() * 3}s`;
-                piece.style.animationDelay =
-                    `${Math.random() * 0.8}s`;
-                piece.style.transform =
-                    `rotate(
-                        ${Math.random() * 360}deg
-                    )`;
-                document.body.appendChild(
-                    piece
-                );
-                setTimeout(
-                    () => {
-                        piece.remove();
-                    },
-                    6500
-                );
-            }
-        }
-        /* =====================================================
+
+        });
+
+
+        /* =========================
+           GALLERY LIGHTBOX
+        ========================= */
+
+        const galleryImages = document.querySelectorAll(".gallery-item img");
+
+        galleryImages.forEach(image => {
+
+            image.addEventListener("click", () => {
+
+                const overlay = document.createElement("div");
+
+                overlay.style.position = "fixed";
+                overlay.style.inset = "0";
+                overlay.style.zIndex = "9999";
+                overlay.style.background = "rgba(0,0,0,.92)";
+                overlay.style.display = "flex";
+                overlay.style.alignItems = "center";
+                overlay.style.justifyContent = "center";
+                overlay.style.padding = "20px";
+                overlay.style.cursor = "zoom-out";
+
+                const largeImage = document.createElement("img");
+
+                largeImage.src = image.src;
+
+                largeImage.style.maxWidth = "95%";
+                largeImage.style.maxHeight = "90vh";
+                largeImage.style.objectFit = "contain";
+                largeImage.style.borderRadius = "4px";
+                largeImage.style.boxShadow = "0 30px 100px rgba(0,0,0,.7)";
+
+                overlay.appendChild(largeImage);
+
+                document.body.appendChild(overlay);
+
+                overlay.addEventListener("click", () => {
+                    overlay.remove();
+                });
+
+            });
+
+        });
+
+
+        /* =========================
            FLOATING HEARTS
-        ===================================================== */
+        ========================= */
+
         function createFloatingHearts() {
-            setInterval(
-                () => {
-                    const heart =
-                        document.createElement(
-                            "div"
-                        );
-                    heart.className =
-                        "floating-heart";
-                    heart.textContent =
-                        Math.random() > 0.5
-                            ? "♡"
-                            : "♥";
-                    heart.style.left =
-                        `${Math.random() * 100}vw`;
-                    heart.style.fontSize =
-                        `${12 + Math.random() * 18}px`;
-                    heart.style.animationDuration =
-                        `${8 + Math.random() * 7}s`;
-                    document.body.appendChild(
-                        heart
-                    );
-                    setTimeout(
-                        () => {
-                            heart.remove();
-                        },
-                        16000
-                    );
-                },
-                1800
-            );
+
+            setInterval(() => {
+
+                if (document.hidden) return;
+
+                const heart = document.createElement("div");
+
+                heart.className = "floating-heart";
+
+                heart.textContent = "♥";
+
+                heart.style.left =
+                    Math.random() * 100 + "vw";
+
+                heart.style.fontSize =
+                    (10 + Math.random() * 15) + "px";
+
+                heart.style.setProperty(
+                    "--move",
+                    ((Math.random() - .5) * 160) + "px"
+                );
+
+                heart.style.animationDuration =
+                    (5 + Math.random() * 5) + "s";
+
+                document.body.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 10000);
+
+            }, 1000);
+
         }
-        /* =====================================================
-           FINAL CONFETTI
-        ===================================================== */
-        const finalSection =
-            document.querySelector(
-                ".final-section"
-            );
-        let finalTriggered = false;
-        const finalObserver =
-            new IntersectionObserver(
-                (entries) => {
-                    entries.forEach(
-                        (entry) => {
-                            if (
-                                entry.isIntersecting &&
-                                !finalTriggered
-                            ) {
-                                finalTriggered =
-                                    true;
-                                setTimeout(
-                                    () => {
-                                        createConfetti(
-                                            100
-                                        );
-                                    },
-                                    500
-                                );
-                            }
-                        }
-                    );
-                },
-                {
-                    threshold: 0.45
-                }
-            );
-        finalObserver.observe(
-            finalSection
-        );
+
+
+        /* =========================
+           CONFETTI
+        ========================= */
+
+        function createConfetti(amount = 50) {
+
+            for (let i = 0; i < amount; i++) {
+
+                const piece = document.createElement("div");
+
+                piece.className = "confetti";
+
+                piece.style.left =
+                    Math.random() * 100 + "vw";
+
+                piece.style.animationDelay =
+                    Math.random() * .8 + "s";
+
+                piece.style.animationDuration =
+                    (2 + Math.random() * 2) + "s";
+
+                piece.style.transform =
+                    "rotate(" +
+                    Math.random() * 360 +
+                    "deg)";
+
+                piece.style.background =
+                    [
+                        "#ff9dbd",
+                        "#ffd3df",
+                        "#ffffff",
+                        "#d5b8ff",
+                        "#ffcadb"
+                    ][Math.floor(Math.random() * 5)];
+
+                document.body.appendChild(piece);
+
+                setTimeout(() => {
+                    piece.remove();
+                }, 5000);
+
+            }
+
+        }
+
+
+        /* =========================
+           IMAGE ERROR HANDLER
+        ========================= */
+
+        document.querySelectorAll("img").forEach(img => {
+
+            img.addEventListener("error", () => {
+
+                img.style.background = "#15151d";
+
+                img.style.minHeight = "150px";
+
+                console.warn(
+                    "Foto tidak ditemukan:",
+                    img.getAttribute("src")
+                );
+
+            });
+
+        });
+
     </script>
+
 </body>
 </html>
